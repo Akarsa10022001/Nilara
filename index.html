@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nilara · Just Eco H2O</title>
+  <meta name="description" content="Nilara is pure packaged drinking water in a paper-based carton. Pure, Alkaline, Mineral+ and Active, from 200 ml to 1 L.">
+  <meta name="theme-color" content="#1B7FD8">
+  <link rel="icon" href="assets/img/nilara-drop.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=1">
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-bar">
+    <a href="#hero" class="nav-logo" aria-label="Nilara home"><img src="assets/img/nilara-wordmark.png" alt="Nilara" width="996" height="260"></a>
+    <div class="nav-actions">
+      <button class="nav-order" id="openTray" type="button">Order <span class="nav-count" id="navCount">0</span></button>
+      <button class="nav-menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPanel">Menu</button>
+    </div>
+  </div>
+  <nav class="nav-panel" id="menuPanel" aria-label="Sections">
+    <a href="#varieties">Varieties</a>
+    <a href="#why">Why carton</a>
+    <a href="#story">Our story</a>
+    <a href="#range">Sizes &amp; prices</a>
+    <a href="#mywater">My Water</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO: 3D carton carousel -->
+<section class="hero" id="hero">
+  <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+  <img class="hero-fallback" src="assets/img/nilara-carton-photo.png" alt="Nilara 500 ml carton" width="455" height="1287">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-bar">
+    <h1 class="hero-tag">Pure water.<br>Paper carton.<br>Nothing else.</h1>
+    <div class="hero-switch">
+      <button class="round-btn" id="heroPrev" type="button" aria-label="Previous carton">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M19 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="hero-name">
+        <h2 id="heroName">Classic</h2>
+        <p id="heroMeta">01 / 06 · 500 ml · ₹30</p>
+        <div class="hero-dots" id="heroDots"></div>
+      </div>
+      <button class="round-btn" id="heroNext" type="button" aria-label="Next carton">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <a class="pill-btn hero-cta" href="#range">Find your size <span aria-hidden="true">↓</span></a>
+  </div>
+</section>
+
+<!-- VARIETIES: sticky scroll story -->
+<section class="story" id="varieties" style="--n:4">
+  <div class="story-pin">
+    <div class="story-bgs" id="storyBgs"></div>
+    <div class="story-grid">
+      <div class="story-texts" id="storyTexts"></div>
+      <div class="story-visuals" id="storyVisuals">
+        <!-- Pure: ripple -->
+        <div class="sv sv-pure">
+          <div class="ripple"><i></i><i></i><i></i><i></i></div>
+          <img class="ripple-drop" src="assets/img/nilara-drop.png" alt="" width="182" height="295">
+          <span class="sv-cap">7 stages. One clean drop.</span>
+        </div>
+        <!-- Alkaline: pH scale -->
+        <div class="sv sv-alk">
+          <div class="ph">
+            <div class="ph-scale"><span>14</span><span>12</span><span>10</span><span>8</span><span>6</span><span>4</span><span>2</span><span>0</span></div>
+            <div class="ph-bar"><div class="ph-mark"><b>8.5+</b></div><div class="ph-neutral">7 · neutral</div></div>
+          </div>
+          <span class="sv-cap">Gently alkaline, naturally smooth.</span>
+        </div>
+        <!-- Mineral+: orbs -->
+        <div class="sv sv-min">
+          <div class="orbs">
+            <div class="orb o1"><b>Ca</b><small>Calcium</small></div>
+            <div class="orb o2"><b>Mg</b><small>Magnesium</small></div>
+            <div class="orb o3"><b>K</b><small>Potassium</small></div>
+            <div class="orb o4"><b>HCO₃</b><small>Bicarbonate</small></div>
+          </div>
+          <span class="sv-cap">Minerals added back after purification.</span>
+        </div>
+        <!-- Active: bubbles -->
+        <div class="sv sv-act">
+          <div class="bubbles" id="bubbles"></div>
+          <div class="act-big"><b>Na · K · Mg</b><small>electrolytes, zero sugar</small></div>
+          <span class="sv-cap">For hot days and long ones.</span>
+        </div>
+      </div>
+    </div>
+    <canvas class="story-canvas" id="storyCanvas" aria-hidden="true"></canvas>
+    <div class="story-dots" id="storyDots"></div>
+    <div class="story-progress"><span>Scroll to sip</span><i><b id="storyBar"></b></i></div>
+  </div>
+</section>
+
+<!-- WHY: facts -->
+<section class="facts" id="why">
+  <div class="facts-inner">
+    <div class="facts-copy">
+      <p class="eyebrow" id="factEyebrow">Why Nilara · 01 / 04</p>
+      <div class="fact-num"><span id="factNum">0</span><small id="factUnit"></small></div>
+      <h3 class="fact-title" id="factTitle">plastic bottles</h3>
+      <p class="fact-instead">instead of <s id="factInstead">PET bottles</s></p>
+      <p class="fact-body" id="factBody"></p>
+      <div class="fact-nav">
+        <button class="round-btn dark" id="factPrev" type="button" aria-label="Previous fact"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="round-btn dark" id="factNext" type="button" aria-label="Next fact"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="fact-icons" id="factIcons"></div>
+      </div>
+    </div>
+    <figure class="facts-photo">
+      <div class="facts-ring" aria-hidden="true"></div>
+      <img src="assets/img/nilara-carton-photo.png" alt="The Nilara 500 ml carton: Stay Hydrated, Just Eco H2O, packaged drinking water" width="455" height="1287" loading="lazy">
+      <figcaption>The real carton · 500 ml</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- JUST ECO H2O -->
+<section class="h2o" id="h2o">
+  <div class="h2o-type" aria-hidden="true">
+    <span class="h2o-l1">just eco</span>
+    <span class="h2o-l2">H2O.</span>
+  </div>
+  <canvas class="h2o-canvas" id="h2oCanvas" aria-hidden="true"></canvas>
+  <p class="h2o-cap">Water, a paper carton and a cap.<br>That is the whole list.</p>
+</section>
+
+<!-- OUR STORY -->
+<section class="about" id="story">
+  <div class="about-grid">
+    <figure class="about-photo" data-reveal>
+      <img src="assets/img/nilara-forest-splash.jpg" alt="A Nilara carton standing in a splash of water in a green forest" width="1024" height="1536" loading="lazy">
+    </figure>
+    <div class="about-copy">
+      <p class="eyebrow">Our story</p>
+      <h2 class="big-h" data-split>Nila means blue.</h2>
+      <p class="lead" data-reveal>In Hindi and Sanskrit, <em>nīla</em> is the colour of deep water and open sky. We named our water after it as a promise: keep the water pure, and keep the planet blue while we do it.</p>
+      <p data-reveal>So Nilara skips the plastic bottle. Every pour comes from a paper-based carton with a resealable cap. It is light to carry, easy to stack and simple to recycle. Same clean water, a lot less plastic.</p>
+      <ol class="steps">
+        <li data-reveal><b>01</b><h4>Sourced</h4><p>Carefully drawn and tested before anything else happens.</p></li>
+        <li data-reveal><b>02</b><h4>Purified</h4><p>Seven stages, including reverse osmosis, UV and ozone.</p></li>
+        <li data-reveal><b>03</b><h4>Balanced</h4><p>Minerals added back for a light, clean taste.</p></li>
+        <li data-reveal><b>04</b><h4>Sealed</h4><p>Filled into a carton, capped and sealed for you.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- RANGE -->
+<section class="range" id="range">
+  <div class="range-head">
+    <p class="eyebrow">The range</p>
+    <h2 class="big-h" data-split>Every size, one source.</h2>
+    <p class="muted" data-reveal>Four waters, four sizes and two bulk packs. Tap a carton to add it to your order.</p>
+    <div class="filters" id="filters" role="tablist" aria-label="Filter the range">
+      <button class="chip is-on" data-f="all" type="button">All</button>
+      <button class="chip" data-f="pure" type="button">Pure</button>
+      <button class="chip" data-f="alkaline" type="button">Alkaline</button>
+      <button class="chip" data-f="mineral" type="button">Mineral+</button>
+      <button class="chip" data-f="active" type="button">Active</button>
+      <button class="chip" data-f="pack" type="button">Bulk packs</button>
+    </div>
+  </div>
+  <div class="range-grid" id="rangeGrid"></div>
+  <p class="demo-note">Prices are for demonstration and include GST. Final prices are confirmed on order.</p>
+</section>
+
+<!-- MY WATER -->
+<section class="mw" id="mywater">
+  <div class="mw-inner">
+    <div class="mw-logo" data-reveal>
+      <img src="assets/img/mywater-logo.jpg" alt="My Water, powered by Nilara" width="700" height="680" loading="lazy">
+    </div>
+    <div class="mw-copy">
+      <p class="eyebrow light">My Water · powered by Nilara</p>
+      <h2 class="big-h" data-split>Your name. Our water.</h2>
+      <p class="lead" data-reveal>Custom-label cartons for hotels, restaurants, weddings, offices and events. You bring the brand, we fill every carton with Nilara water.</p>
+      <ul class="mw-list">
+        <li data-reveal><b>Your logo</b><span>printed on the carton, front and sides</span></li>
+        <li data-reveal><b>200 ml to 1 L</b><span>any size from the Nilara range</span></li>
+        <li data-reveal><b>From 500 cartons</b><span>per run (demo minimum)</span></li>
+      </ul>
+      <a class="pill-btn sky" id="mwCta" href="#" target="_blank" rel="noopener">Plan your label <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-head">
+    <p class="eyebrow">FAQ</p>
+    <h2 class="big-h" data-split>Good questions.</h2>
+    <p class="muted" data-reveal>Anything else? Message us and a real person replies.</p>
+    <img class="faq-carton" id="faqCarton" alt="" width="360" height="480">
+  </div>
+  <div class="faq-list" id="faqList"></div>
+</section>
+
+<!-- ORDER CTA -->
+<section class="cta" id="order">
+  <img class="cta-carton l" id="ctaLeft" alt="" width="300" height="400">
+  <img class="cta-carton r" id="ctaRight" alt="" width="300" height="400">
+  <div class="cta-copy">
+    <p class="eyebrow">Stay hydrated</p>
+    <h2 class="big-h" data-split>Order by the carton or the case.</h2>
+    <p data-reveal>Homes, offices, cafés and events. Tell us what you need and we will confirm price and delivery on WhatsApp.</p>
+    <div class="cta-row" data-reveal>
+      <button class="pill-btn navy" id="ctaOrder" type="button">Start an order <span aria-hidden="true">→</span></button>
+      <a class="pill-btn ghost" href="#mywater">Bulk &amp; custom label</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-cols">
+    <div>
+      <p class="foot-tag">Pure water. Paper carton.<br>Nothing else.</p>
+      <a class="pill-btn sky small" href="#range">Find your size</a>
+    </div>
+    <div><h5>Explore</h5><a href="#varieties">Varieties</a><a href="#why">Why carton</a><a href="#story">Our story</a><a href="#range">Sizes &amp; prices</a></div>
+    <div><h5>Help</h5><a href="#faq">FAQ</a><a href="#mywater">My Water</a><a href="#order">Order</a></div>
+    <div><h5>Find us</h5><a href="https://nilara.in" rel="noopener">nilara.in</a><a href="#" id="footWa" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+  <img class="foot-mark" src="assets/img/nilara-wordmark-white.png" alt="Nilara, Just Eco H2O" width="996" height="260" loading="lazy">
+  <div class="foot-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="foot-base"><span>© 2026 Nilara. All rights reserved.</span><span>Just Eco H2O</span></div>
+</footer>
+
+<!-- ORDER TRAY -->
+<div class="tray-scrim" id="trayScrim" hidden></div>
+<aside class="tray" id="tray" aria-label="Your order" aria-hidden="true">
+  <div class="tray-head"><h3>Your order</h3><button class="round-btn dark" id="closeTray" type="button" aria-label="Close order"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+  <ul class="tray-list" id="trayList"></ul>
+  <p class="tray-empty" id="trayEmpty">No cartons yet. Pick a size from the range.</p>
+  <div class="tray-foot">
+    <div class="tray-total"><span>Total (demo)</span><b id="trayTotal">₹0</b></div>
+    <a class="pill-btn navy wide" id="traySend" href="#" target="_blank" rel="noopener">Send order on WhatsApp <span aria-hidden="true">→</span></a>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="module" src="js/main.js?v=1"></script>
+</body>
+</html>
